@@ -43,8 +43,10 @@ cc.Class({
         pfbTaskItem: cc.Prefab,
         Diamond: cc.Label,
 
-        edimg: cc.Sprite,
+        edimg: cc.Button,
+        edimg2: cc.Button,
         freeBtn: cc.Button,
+        freeBtn2: cc.Button,
 
         thon:false,
     },
@@ -74,6 +76,13 @@ cc.Class({
         const lastExecutionDate = localStorage.getItem('buy1_lastExecutionDate');
         this.edimg.node.active = (lastExecutionDate === todayDateString);
         this.freeBtn.node.active = !this.edimg.node.active;
+
+        const lastExecutionDate2 = localStorage.getItem('buy2_lastExecutionDate');
+        this.edimg2.node.active = (lastExecutionDate2 === todayDateString);
+        this.freeBtn2.node.active = !this.edimg2.node.active;
+
+
+
     },
     async openBot () {
         try {
@@ -255,8 +264,11 @@ cc.Class({
             console.log("今天已领，请明天再来！");
             return;
         }
-
+        
         cc.gameSpace.uiManager.showSharedDialog('gameshop/gameshopTip', 'gameshopTip',[1,1]);
+        this.schedule(() => {
+            this.ed();
+        }, 0.1);
 
         console.log("订单约定成功");
     },

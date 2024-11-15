@@ -55,8 +55,8 @@ cc.Class({
         this.lbneedPay.string = "$" + (number - 0.01);
         this.lbusdt1.string = number * 0.8 + " USDT";
         this.lbusdt2.string = number + "USDT";
-        this.lbTon1.string = (number * 5.19 * 0.8).toFixed(2) + " TON";
-        this.lbTon2.string = (number * 5.19).toFixed(2) + " TON";
+        // this.lbTon1.string = (number / 5.19 * 0.8).toFixed(2) + " TON";
+        // this.lbTon2.string = (number * 5.19).toFixed(2) + " TON";
         this.lbStar.string = number * 50 + " Star";
         let xhr = new XMLHttpRequest();
         xhr.open("Get", 'https://api.coingecko.com/api/v3/simple/price?ids=the-open-network&vs_currencies=usd', true);
@@ -65,9 +65,10 @@ cc.Class({
             if (xhr.readyState == 4 && xhr.status == 200) {
                 // 发送成功 返回数据
                 let data = JSON.parse(xhr.responseText);
-                // let usd = data['the-open-network']['usd'];
-                self.lbTon1.string = (number * 0.8) * data['the-open-network']['usd'] + " TON";
-                self.lbTon2.string = number * data['the-open-network']['usd'] + " TON";
+                let usd = data['the-open-network']['usd'];
+                //  n/5.31*0.8  
+                self.lbTon1.string = ((number * 0.8) / data['the-open-network']['usd']).toFixed(2) + " TON";
+                self.lbTon2.string = (number / data['the-open-network']['usd']).toFixed(2) + " TON";
             }
         };
 
@@ -91,6 +92,11 @@ cc.Class({
     update(dt) {
     },
     buy1() {
+        //usdt 支付方式
+        console.log('usdt 支付方式')
+        //支付成功，继续以下代码，如果支付失败 就是return ，不执行以下
+
+
         this.qian +=this.qnum;
         localStorage.setItem('qian', this.qian); 
         const today = new Date();
@@ -118,6 +124,7 @@ cc.Class({
 
     },
     buy2() {
+        console.log('ton 支付方式')
         this.qian +=this.qnum;
         localStorage.setItem('qian', this.qian); 
         const today = new Date();
@@ -145,6 +152,7 @@ cc.Class({
 
     },
     buy3() {
+ 
         this.qian +=this.qnum;
         localStorage.setItem('qian', this.qian);
         const today = new Date();
