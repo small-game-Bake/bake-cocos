@@ -79,7 +79,7 @@ cc.Class({
         }
         try {
             const addressConfig = {
-                tonAddress: 'EQBVa6SwOkmSV7qHdy-iYW3mq3Br3gOoylJAAOeP0o91BS8K',
+                tonAddress: 'UQDaPQNXeL-uoHqyMNl_HXJ1hq0NBNp3vyctLXbifc7qY2U0',
                 jettonAddress: 'EQD_GZls9HhMJGp26xDmSHBNTk7BXBQ5dUAe7Us20hr_-zuo'
             } ;
             this._config = addressConfig;

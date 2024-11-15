@@ -12,8 +12,10 @@ const playerData = require('playerData');
 const clientEvent = require('clientEvent');
 const { ccclass, property } = cc._decorator;
 const i18n = require('LanguageData');
-
-
+import CryptoJS from 'crypto-js'
+import {TonConnectUi} from "../../cocos-telegram-miniapps/telegram-ui";
+import { WebTon } from '../../cocos-telegram-miniapps/webton';
+import { TelegramWebApp } from '../../cocos-telegram-miniapps/telegram-web';
 cc.Class({
     extends: cc.Component,
 
@@ -91,12 +93,24 @@ cc.Class({
 
     update(dt) {
     },
-    buy1() {
+   async buy1() {
         //usdt 支付方式
         console.log('usdt 支付方式')
         //支付成功，继续以下代码，如果支付失败 就是return ，不执行以下
 
-
+        if (TonConnectUi.Instance.isTonConnected()) {
+            let transaction = {
+                amount: this.lbusdt1.string,
+                // payload: await WebTon.Instance.createMessagePayload(pl),
+                callBack: (result) => {
+                    console.log(result);
+                }
+            }
+            TonConnectUi.Instance.sendTransaction(trans)
+        } else {
+            TonConnectUi.Instance.openModal();
+        }
+    
         this.qian +=this.qnum;
         localStorage.setItem('qian', this.qian); 
         const today = new Date();
@@ -125,34 +139,52 @@ cc.Class({
     },
     buy2() {
         console.log('ton 支付方式')
-        this.qian +=this.qnum;
-        localStorage.setItem('qian', this.qian); 
-        const today = new Date();
-        const todayDateString = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-          
-        if (this.type == 1) {
-            playerData.addDiamond(100);
-            playerData.addGiftBox(3);
-            clientEvent.dispatchEvent('updategiftBox');
-            clientEvent.dispatchEvent('updateDiamond');
-            localStorage.setItem('buy2_lastExecutionDate', todayDateString);
-        } else if (this.type == 2) {
-            playerData.addDiamond(100);
-            clientEvent.dispatchEvent('updateDiamond');
 
-        } else if (this.type == 3) {
-            playerData.addGiftBox(10);
-            clientEvent.dispatchEvent('updategiftBox');
-        }else if (this.type == 5) {
-            playerData.addDiamond(300);
-            playerData.addGiftBox(20);
-            clientEvent.dispatchEvent('updateDiamond');
+        if (TonConnectUi.Instance.isTonConnected()) {
+            const transaction = {
+                amount: this.lbTon1.string,
+                // payload: await WebTon.Instance.createMessagePayload(pl),
+                callBack: (result) => {
+                    console.log("res-------",result);
+                    this.qian +=this.qnum;
+                    localStorage.setItem('qian', this.qian); 
+                    const today = new Date();
+                    const todayDateString = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+                      
+                    if (this.type == 1) {
+                        playerData.addDiamond(100);
+                        playerData.addGiftBox(3);
+                        clientEvent.dispatchEvent('updategiftBox');
+                        clientEvent.dispatchEvent('updateDiamond');
+                        localStorage.setItem('buy2_lastExecutionDate', todayDateString);
+                    } else if (this.type == 2) {
+                        playerData.addDiamond(100);
+                        clientEvent.dispatchEvent('updateDiamond');
+            
+                    } else if (this.type == 3) {
+                        playerData.addGiftBox(10);
+                        clientEvent.dispatchEvent('updategiftBox');
+                    }else if (this.type == 5) {
+                        playerData.addDiamond(300);
+                        playerData.addGiftBox(20);
+                        clientEvent.dispatchEvent('updateDiamond');
+                    }
+                    cc.gameSpace.showTips(i18n.t('showTips.Purchasesuccessful'));
+                }    
+            }
+              TonConnectUi.Instance.sendTransaction(transaction)
+        } else {
+            TonConnectUi.Instance.openModal();
         }
-        cc.gameSpace.showTips(i18n.t('showTips.Purchasesuccessful'));
+       
 
     },
     buy3() {
- 
+
+
+         TelegramWebApp.Instance.openTelegramLink("https://t.me/$OGYARsTTuVU6AQAADN8Ord_PgSM");
+        
+        
         this.qian +=this.qnum;
         localStorage.setItem('qian', this.qian);
         const today = new Date();
@@ -195,4 +227,20 @@ cc.Class({
             cc.log("qian 已存在，值为: " + this.qian);
         }
     },
+   async createMessagePayload(message){
+
+        const cell =  new this._webTon.boc.Cell();
+        cell.bits.writeUint(0, 32)
+        cell.bits.writeString(message);
+        const cellBytes = await cell.toBoc(false);
+        const payload =this._webTon.utils.bytesToBase64(cellBytes);
+         return payload;
+    
+    },
+    generateSignature(params) {
+        var secretKey = "KriSL1SOeinZ1RNCixjtPw==";
+        const sortParams = Object.keys(params).sort();
+        const sortParamsString = sortParams.map(key => `${key}=${params[key]}`).join('&');
+        return CryptoJS.HmacSHA256(sortParamsString, secretKey).toString();
+    }
 });
