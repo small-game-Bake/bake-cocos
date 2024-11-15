@@ -1,0 +1,6 @@
+ID,name,任务类型（1成功合成蛋糕 2解锁新蛋糕 3分享游戏 4在线出售蛋糕 5消耗钻石）,任务完成所需数量,奖励类型（1钻石 2金币）,奖励数量,任务描述
+number,string,number,number,number,number,string
+ID,name,type,number,rewardType,rewardValue,desc
+9,钱包签到,3,1,1,10,钱包签到
+10,访问频道,3,1,1,5,访问频道
+11,分享游戏,3,1,1,5,分享游戏

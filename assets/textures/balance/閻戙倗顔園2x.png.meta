@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "aa526d22-6bf9-4cce-a78b-b6f2ce0ff708",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 162,
+  "height": 162,
+  "platformSettings": {},
+  "subMetas": {
+    "閻戙倗顔園2x": {
+      "ver": "1.0.6",
+      "uuid": "880f8a9f-4be8-4230-809e-d45c49f65b48",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "aa526d22-6bf9-4cce-a78b-b6f2ce0ff708",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 2.5,
+      "offsetY": -2.5,
+      "trimX": 24,
+      "trimY": 7,
+      "width": 119,
+      "height": 153,
+      "rawWidth": 162,
+      "rawHeight": 162,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

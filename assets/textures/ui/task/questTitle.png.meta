@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "6e330622-3174-42be-82a3-244ff0c661bc",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 101,
+  "height": 60,
+  "platformSettings": {},
+  "subMetas": {
+    "questTitle": {
+      "ver": "1.0.6",
+      "uuid": "9d1a0575-55e6-45a0-9aa9-89ff4f41407d",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "6e330622-3174-42be-82a3-244ff0c661bc",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": 2,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 98,
+      "height": 54,
+      "rawWidth": 101,
+      "rawHeight": 60,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
